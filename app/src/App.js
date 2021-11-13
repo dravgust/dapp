@@ -8,9 +8,9 @@ import "./App.css";
 
 const App = () => {
   return (
-    <>
-      <Header/>
+    <>  
       <Router>
+        <Header/>
         <Routes>
           <Route path='*' element={<NotFound />} />
           <Route path='/' element={<Home/>} />
