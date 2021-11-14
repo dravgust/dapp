@@ -26,7 +26,7 @@ const Home = () => {
 
           </div>
         </div>
-        <a href="#" data-toggle="scroll-to-top" className="btn-scroll-top fade"><i className="fa fa-arrow-up"></i></a>
+        <a href="#!" data-toggle="scroll-to-top" className="btn-scroll-top fade"><i className="fa fa-arrow-up"></i></a>
       </div>
       </>
     );

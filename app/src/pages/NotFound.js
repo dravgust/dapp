@@ -6,7 +6,7 @@ const NotFound = () => {
       	<div id="app" className="app app-full-height app-without-header">
           <div className="error-page">
             <div className="error-page-content">
-              <div className="card mb-5 mx-auto" style={{'max-width': '320px'}}>
+              <div className="card mb-5 mx-auto" style={{maxWidth: '320px'}}>
                 <div className="card-body">
                   <div className="card">
                     <div className="error-code">404</div>
@@ -44,10 +44,10 @@ const NotFound = () => {
                 <span className="link-divider"></span>
                 <a href="helper.html" className="text-decoration-none text-white text-opacity-50">Helper</a>
               </p>
-              <a href="javascript:window.history.back();" className="btn btn-outline-theme px-3 rounded-pill"><i className="fa fa-arrow-left me-1 ms-n1"></i> Go Back</a>
+              <button onClick={(e) => window.history.back()} className="btn btn-outline-theme px-3 rounded-pill"><i className="fa fa-arrow-left me-1 ms-n1"></i> Go Back</button>
             </div>
           </div>
-          <a href="#" data-toggle="scroll-to-top" className="btn-scroll-top fade"><i className="fa fa-arrow-up"></i></a>
+          <a href="#!" data-toggle="scroll-to-top" className="btn-scroll-top fade"><i className="fa fa-arrow-up"></i></a>
         </div>
       </>
     );
