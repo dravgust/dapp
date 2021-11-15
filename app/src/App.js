@@ -5,6 +5,7 @@ import Dapp from "./pages/Dapp";
 import NotFound from "./pages/NotFound";
 import DefaultLayout from './pages/_layouts/DefaultLayout';
 import TestPage from './pages/TestPage';
+import Dapp2 from './pages/Dapp2';
 
 const App = () => {
   return (
@@ -19,6 +20,12 @@ const App = () => {
                 <DefaultLayout> 
                   <Dapp/>
                 </DefaultLayout>
+              }
+              />
+              <Route
+              path="/dapp2"
+              element={
+                  <Dapp2/>
               }
               />
           </Routes>
