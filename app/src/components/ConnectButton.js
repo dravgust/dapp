@@ -2,8 +2,9 @@ import React from "react";
 import { Button, Box, Text } from "@chakra-ui/react";
 import { useEthers, useEtherBalance } from "@usedapp/core";
 import { formatEther } from '@ethersproject/units'
+import Identicon from "./Identicon";
 
-const ConnectButton = () => {
+const ConnectButton = (props) => {
   const {activateBrowserWallet, account } = useEthers();
   const etherBalance = useEtherBalance(account);
 
@@ -25,6 +26,7 @@ const ConnectButton = () => {
         </Text>
       </Box>
       <Button
+        onClick={props.handleOpenModal}
         bg="gray.800"
         border="1px solid transparent"
         _hover={{
@@ -44,6 +46,7 @@ const ConnectButton = () => {
               account.length
             )}`}
         </Text>
+        <Identicon />
       </Button>
     </Box>
   ) : (
