@@ -3,3 +3,9 @@ export const addItem = (id, title) => ({
     id,
     title
 });
+
+export const addAccount = (address, balance) => ({
+    type: 'ADD_ACCOUNT',
+    address,
+    balance
+});

@@ -1,6 +1,8 @@
 import React from "react";
 import { drizzleReactHooks } from "@drizzle/react-plugin"
 import { newContextComponents } from "@drizzle/react-components";
+import { useDispatch } from "react-redux";
+import { addAccount } from "../action";
 
 const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 const { AccountData, ContractData, ContractForm } = newContextComponents;
@@ -8,6 +10,13 @@ const { AccountData, ContractData, ContractForm } = newContextComponents;
 export default () => {
   const { drizzle } = useDrizzle();
   const drizzleState = useDrizzleState(state => state);
+
+  const dispatch = useDispatch();
+  Object.entries(drizzleState.accountBalances).map(([key, value], i) => 
+  {
+    dispatch(addAccount(key, value));
+  });
+
   return (
     <div className="App">
       <div>
