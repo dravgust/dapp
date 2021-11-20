@@ -4,9 +4,9 @@ import { Flex } from "@chakra-ui/react";
 const ChakraLayout = ({children}) => {
     return(
         <Flex
-            //flexDirection="column"
+            flexDirection="column"
             //alignItems="center"
-            //justifyContent="center"
+            justifyContent="center"
             h="100vh"
             bg="gray.800"
             >

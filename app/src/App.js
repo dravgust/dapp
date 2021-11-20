@@ -6,6 +6,7 @@ import NotFound from "./pages/NotFound";
 import DefaultLayout from './pages/_layouts/DefaultLayout';
 import TestPage from './pages/TestPage';
 import Dapp2 from './pages/Dapp2';
+import ChakraUI from './pages/ChakraUI';
 
 const App = () => {
   return (
@@ -26,6 +27,12 @@ const App = () => {
               path="/dapp2"
               element={
                   <Dapp2/>
+              }
+              />
+              <Route
+              path="/chakraui"
+              element={
+                  <ChakraUI/>
               }
               />
           </Routes>
