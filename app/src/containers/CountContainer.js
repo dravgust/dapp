@@ -3,7 +3,7 @@ import {ethers} from 'ethers';
 
 import artifact  from "../contracts/Counter.json";
 
-const CountComponent = () => {
+const CountContainer = () => {
 
     const [count, setCount] = useState();
     const contract = useRef();
@@ -24,8 +24,6 @@ const CountComponent = () => {
         const setup = async () => {
           const provider = new ethers.providers.JsonRpcProvider("http://localhost:7545");
           const network = await provider.getNetwork();
-
-          console.log("network", network);
           const contractAddress = artifact.networks[network.chainId].address;
 
           // instantiate contract instance and assign to component ref variable
@@ -44,4 +42,4 @@ const CountComponent = () => {
       return { count, increment };
 }
 
-export default CountComponent;
+export default CountContainer;

@@ -5,6 +5,7 @@ import ConnectButton from "./ConnectButton";
 import AccountModal from "./AccountModal";
 import { Box, Heading, Spacer, Flex, Grid, GridItem } from "@chakra-ui/react";
 import Count from "./Count";
+import Governor from "./Governor";
 
 const Web3ModalComponent = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -25,6 +26,7 @@ const Web3ModalComponent = () => {
                     <GridItem rowSpan={2} colSpan={1} />
                     <GridItem rowSpan={2} colSpan={2}>
                         <Count />
+                        <Governor/>
                     </GridItem>
                     <GridItem rowSpan={2} colSpan={1} />
                 </Grid>

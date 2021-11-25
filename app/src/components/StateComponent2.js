@@ -1,6 +1,5 @@
 import React from "react";
 import {useState} from 'react';
-import CountComponent from '../components/CountComponent';
 
 const StateComponent2 = () => {
 
@@ -22,10 +21,6 @@ const StateComponent2 = () => {
         myFref.current.value = '';
     }
 
-    console.log("...");
-    var result = CountComponent();
-    console.log(result);
-
     return (
         <>
             <h1>State</h1>
@@ -39,9 +34,6 @@ const StateComponent2 = () => {
                     {comment.map((item, index) => <li key={index.toString()}>{item}</li>)}    
                 </ul>
             </div>
-
-            <div>{result.count}</div>
-            <div><button onClick={result.increment}>Increment</button></div>
         </>
     )
 }

@@ -6,7 +6,7 @@ import {
     Button,
     NumberInput,
     NumberInputField, } from "@chakra-ui/react";
-import { useGetCount, useContractMethod } from "../hooks";
+import { useGetCount, useContractMethod } from "../hooks/counter";
 
 export default function Count() {
     const count = useGetCount();
