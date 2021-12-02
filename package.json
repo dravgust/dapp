@@ -24,6 +24,7 @@
     "@openzeppelin/contracts": "^4.3.3",
     "@truffle/hdwallet-provider": "^1.6.0",
     "fs": "0.0.1-security",
+    "truffle": "^5.4.22",
     "truffle-hdwallet-provider": "^1.0.17"
   }
 }

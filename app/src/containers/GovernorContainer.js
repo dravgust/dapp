@@ -2,7 +2,7 @@ import  {useRef, useEffect, useState }  from "react";
 import { ethers } from 'ethers';
 //import { Contract } from "@ethersproject/contracts";
 //import { useContractCall, useContractFunction } from "@usedapp/core";
-//import { useEthers } from "@usedapp/core";
+//import { useEthers, useEtherBalance } from "@usedapp/core";
 import governorArtifact from "../contracts/BlackGovernor.json";
 import tokenArtifact from "../contracts/BlackToken.json";
 
@@ -14,17 +14,6 @@ const GovernorContainer = async () => {
 
   const governorAddress = useRef();
   const governorContract = useRef();
-
-  const getBalance = async () => {
-    const balance = await provider.current.getBalance("0x1192aAa5F07ABD4F23939A1219a7165230D035d3");
-    console.log("balance ETH", ethers.utils.formatEther(balance));
-
-    const votes = ethers.utils.parseUnits("100.0", 18);
-    //await tokenContract.current.mint("0x1192aAa5F07ABD4F23939A1219a7165230D035d3", votes);
-
-    const tokenBalance = await tokenContract.current.balanceOf("0x1192aAa5F07ABD4F23939A1219a7165230D035d3");
-    console.log("tokenBalance", ethers.utils.formatEther(tokenBalance));
-  }
 
   const propose = async () => {
     const teamAddress = "0x1192aAa5F07ABD4F23939A1219a7165230D035d3";
@@ -75,16 +64,42 @@ const GovernorContainer = async () => {
 
   }
 
-  const state = async () => {
+  const getInfo = async () => {
 
-    const proposals0 = await governorContract.current["state"]("1365523173584674078518458925343998035055286676685188319800354867330218052941");
-    console.log("state0", proposals0);
+    console.log("blockNumber", await provider.current.getBlockNumber());
+    const gasPrice = await provider.current.getGasPrice();
+    console.log("gasPrice (gwei)", ethers.utils.formatUnits(gasPrice, "gwei"));
+     
+    //await provider.current.send("eth_requestAccounts", []);
+    const signer = provider.current.getSigner();
+    const account = await signer.getAddress();
+    console.log("account", account);
+    if(account){
+      const balance = await provider.current.getBalance(account);
+      console.log("account balance (ETH)", ethers.utils.formatEther(balance));
 
-    const castVote  = await governorContract.current.castVote("1365523173584674078518458925343998035055286676685188319800354867330218052941", 1);
-    console.log("cast", castVote);
+      const tokenBalance = await tokenContract.current.balanceOf(account);
+      console.log("account alance (Token)", ethers.utils.formatUnits(tokenBalance, "wei"));
+    
+      const recipient = account;
+      const transferGasEstimate = await tokenContract.current.estimateGas.transfer(recipient, 100);
+      console.log("estimate gas (transfer)", ethers.utils.formatUnits(transferGasEstimate));
 
-    const proposals1 = await governorContract.current["state"]("1365523173584674078518458925343998035055286676685188319800354867330218052941");
-    console.log("state1", proposals1);
+      const gasCostInEther = ethers.utils.formatUnits((transferGasEstimate * gasPrice), "gwei");
+      console.log("transfer gas cost (gwei)", gasCostInEther);
+    }
+
+    //const votes = ethers.utils.parseUnits("100.0", 18);
+    //await tokenContract.current.mint("0x1192aAa5F07ABD4F23939A1219a7165230D035d3", votes);
+
+    //const proposals0 = await governorContract.current["state"]("1365523173584674078518458925343998035055286676685188319800354867330218052941");
+    //console.log("state0", proposals0);
+
+    //const castVote  = await governorContract.current.castVote("1365523173584674078518458925343998035055286676685188319800354867330218052941", 1);
+    //console.log("cast", castVote);
+
+    //const proposals1 = await governorContract.current["state"]("1365523173584674078518458925343998035055286676685188319800354867330218052941");
+    //console.log("state1", proposals1);
   }
 
 
@@ -95,10 +110,9 @@ const GovernorContainer = async () => {
         //const provider = new ethers.providers.Web3Provider(window.ethereum)
         console.log("provider", provider.current);
         const network = await provider.current.getNetwork();
-        console.log("network", network);
-
+        console.log("network", network);     
         tokenAddress.current = tokenArtifact.networks[network.chainId].address;
-        console.log("t_address", tokenAddress.current);
+        console.log("token_address", tokenAddress.current);
         //const tokenInterface = new ethers.utils.Interface(tokenArtifact.abi);
         //const tokenContract = new Contract(tokenAddress, tokenInterface);
         //const tokenContract.current = new ethers.Contract(tokenAddress, tokenArtifact.abi, provider);
@@ -108,12 +122,12 @@ const GovernorContainer = async () => {
           tokenArtifact.abi,
           provider.current.getSigner(),
         );
-        console.log("tokenContract", tokenContract.current);
+        console.log("token_contract", tokenContract.current);
 
         //-----------------------------------------------------
 
         governorAddress.current = governorArtifact.networks[network.chainId].address;
-        console.log("g_address", governorAddress.current);
+        console.log("gov_address", governorAddress.current);
         //const tokenInterface = new ethers.utils.Interface(tokenArtifact.abi);
         //const tokenContract = new Contract(tokenAddress, tokenInterface);
         //const tokenContract.current = new ethers.Contract(tokenAddress, tokenArtifact.abi, provider);
@@ -123,14 +137,11 @@ const GovernorContainer = async () => {
           governorArtifact.abi,
           provider.current.getSigner(),
         );
-        console.log("govContract", governorContract.current);
+        console.log("gov_contract", governorContract.current);
 
-        await getBalance();
-
-        
         //await cancel();
         //await propose();
-        await state();
+        await getInfo();
         //await queue();
         //await execute();
     }
